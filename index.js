@@ -59,7 +59,6 @@ inquirer
     }
 ])
 .then((data)=>{
-    // const README = `${data.github.toLowerCase().split(' ').join('')}.md`;
     
     // TODO: Create a function to write README file
      fs.writeFile( './output/README.md' , generateMarkdown(data) ,(err) =>
