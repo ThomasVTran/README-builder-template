@@ -6,12 +6,12 @@ const fs = require('fs')
 inquirer
 .prompt([
     {
-        name: 'GitHub',
+        name: 'github',
         type: 'input',
         message:'What is your GitHub username?'
     },
     {
-        name: 'Email',
+        name: 'email',
         type: 'input',
         message:'What is your email address?'
     },
@@ -26,23 +26,23 @@ inquirer
         message:'Please write a short description of your project'
     },
     {
-        name: 'licenses',
-        type: 'checkbox',
+        name: 'license',
+        type: 'list',
         message:'What kind of license should your project have?',
-        choices:[]
+        choices:['MIT_License', 'Apache_License_2.0', 'ISC_License', 'BSD3-Clause_"New"_or_"Revised"_License']
     },
     {
-        name: 'dependencies',
+        name: 'dependency',
         type: 'input',
         message:'What command should be run to install dependencies?'
     },
     {
-        name: 'tests',
+        name: 'test',
         type: 'input',
         message:'What command should be run to run tests?'
     },
     {
-        name: 'uses',
+        name: 'usage',
         type: 'input',
         message:'What does the user need to know about using the repo?'
     },
@@ -51,12 +51,18 @@ inquirer
         type: 'input',
         message:'What does the user need to know about contributing to the repo?'
     },
+    {
+        name: 'color',
+        type: 'list',
+        message: 'Choose a color for your badge',
+        choices:["blue", 'red', 'yellow', 'green']
+    }
 ])
 .then((data)=>{
-    const README = `${data.name.toLowerCase().split(' ').join('')}.json`;
+    // const README = `${data.github.toLowerCase().split(' ').join('')}.md`;
     
     // TODO: Create a function to write README file
-     fs.writeToFile( README , JSON.stringify(data, null, '\t'), (err) =>
+     fs.writeFile( './output/README.md' , generateMarkdown(data) ,(err) =>
         err ? console.error(err) : console.log('Success!')
     )
 })
